@@ -1,18 +1,39 @@
-
-
-var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
-var schedule = require("node-schedule");
+const MongoClient         = require('mongodb');
+var schedule            = require("node-schedule");
+const db                  = require('./config/db');
 
 console.log("Starting repopulate script...")
 
-var j = schedule.scheduleJob('12 01 * * *', function(fireDate){
-    const url = "http://35.168.54.90/populate";
-    const http = new XMLHttpRequest();
-    http.open("GET", url);
-    http.send();
-
-    http.onreadystatechange=(e) => {
-        console.log(http.responseText);
-    }
-
-});
+var CronJob = require('cron').CronJob;
+//second, minute, hour, day
+var j = new CronJob('1 0 0 * * *', function() {
+    MongoClient.connect(db.url, (err, database) => {
+        if(err) console.log(err);
+        var d = new Date();
+        var todays = [];
+        console.log(d.getDay());
+        database.collection("trucks").drop(function(err, delOK) {
+            if (err) console.log(err);
+            if (delOK) console.log("Truck Collection deleted");
+        });
+        database.collection("truckCounts").remove(function(err, delOK){
+            if (err) console.log(err);
+            if (delOK) console.log("Truck Count Collection deleted")
+        });
+        database.collection('scheduledTrucks').find({}).toArray(function(err, docs){
+            docs.forEach(doc => {
+                if(d.getDay() == doc.day){
+                    todays.push(doc);
+                    database.collection('trucks').insert(doc, (err, result) => {
+                        if(err){
+                            console.log({'error' : 'An error has occurred' })
+                        } else {
+                            console.log(result.ops[0]);
+                        }
+                    });
+                }
+            });
+        });
+    });
+}, null, true, 'America/Los_Angeles');
+console.log(j.nextDates());

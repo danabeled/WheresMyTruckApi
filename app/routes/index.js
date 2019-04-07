@@ -1,6 +1,5 @@
 const truckRoutes = require('./truck_routes');
 const scheduleRoutes = require('./schedule_routes');
-const populateRoutes = require('./populate_routes');
 const observer = require('./observer');
 
 ///*
@@ -33,7 +32,6 @@ module.exports = function(app, db){
 
     truckRoutes(app, db);
     scheduleRoutes(app, db);
-    populateRoutes(app, db);
     observer(app, db);
 }
 //*/

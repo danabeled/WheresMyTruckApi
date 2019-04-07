@@ -76,12 +76,6 @@ module.exports = function(app, db) {
         deviceList.delete(ip);
         res.send({"ip" : ip});
     });
-
-    app.get('/trucks', (req, res) => {
-        db.collection('trucks').find({}).toArray(function(err, docs){
-            res.send(docs);
-        });
-    });
     
     app.get('/truckCounts', (req, res) => {
         var truck = {name : req.query.name};
@@ -98,18 +92,6 @@ module.exports = function(app, db) {
     });
 
 
-    app.post('/trucks', (req, res) =>{
-        const truck = { name: req.body.name, lat: req.body.lat, lon: req.body.lon };
-        
-        console.log('trucks');
-        db.collection('trucks').insert(truck, (err, result) => {
-            if(err) {
-                res.send({'error' : 'An error has occurred' })
-            } else {
-                res.send(result.ops[0]);
-            }
-        })
-    });
 
     function truckCondition(truckName, latitude, longitude) {
         return {
