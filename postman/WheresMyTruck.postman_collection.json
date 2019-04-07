@@ -1,0 +1,77 @@
+{
+	"info": {
+		"_postman_id": "b48be33e-29fb-6812-185d-4fcaa011a15f",
+		"name": "WheresMyTruck",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Add a Truck",
+			"item": [
+				{
+					"name": "Successful Request",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\" : \"Kebabish\",\n\t\"lat\" : \"42.346932\",\n\t\"lon\" : \"-71.075637\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8081/trucks",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"trucks"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Get All Trucks",
+			"item": [
+				{
+					"name": "Successful Request",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8081/trucks",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"trucks"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
