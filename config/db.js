@@ -1,3 +1,4 @@
+require('dotenv').config()
 module.exports = {
-    url : "mongodb://admin:superuser1@ds261342.mlab.com:61342/dbdev"
+    url : `mongodb://${process.env.DB_HOST}/${process.env.DB_NAME}`
 };
