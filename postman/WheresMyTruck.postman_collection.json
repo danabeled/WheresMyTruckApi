@@ -10,6 +10,22 @@
 			"item": [
 				{
 					"name": "Successful Request",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2ee5e332-940f-4764-8574-c6f4339da90b",
+								"exec": [
+									"pm.test(\"Status code is 200\", function()",
+									"{",
+									"    pm.response.to.have.status(200);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
 						"header": [
@@ -45,6 +61,22 @@
 			"item": [
 				{
 					"name": "Successful Request",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "bf7fcab0-8e20-45e7-aa34-c44327694d94",
+								"exec": [
+									"pm.test(\"Status code is 200\", function()",
+									"{",
+									"    pm.response.to.have.status(200);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "GET",
 						"header": [
