@@ -1,6 +1,4 @@
 const truckRoutes = require('./truck_routes');
-const scheduleRoutes = require('./schedule_routes');
-const observer = require('./observer');
 
 ///*
 const router = require('express').Router();
