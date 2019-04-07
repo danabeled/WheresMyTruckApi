@@ -1,6 +1,6 @@
 var deviceList = new Set();
 var admin = require('firebase-admin');
-var fs = require('fs')
+var fs = require('fs');
 
 var serviceAccount = require("../../firebaseServiceAccountCredentials.json");
 
