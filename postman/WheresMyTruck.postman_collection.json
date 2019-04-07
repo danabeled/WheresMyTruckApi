@@ -6,6 +6,59 @@
 	},
 	"item": [
 		{
+			"name": "Add Schedule",
+			"item": [
+				{
+					"name": "Successful Request",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2ee5e332-940f-4764-8574-c6f4339da90b",
+								"exec": [
+									"pm.test(\"Status code is 200\", function()",
+									"{",
+									"    pm.response.to.have.status(200);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\" : \"Kebabish\",\n\t\"lat\" : \"42.346932\",\n\t\"lon\" : \"-71.075637\",\n\t\"day\" : 1\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8081/api/schedule/add",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"schedule",
+								"add"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "Add a Truck",
 			"item": [
 				{
@@ -41,14 +94,16 @@
 							"raw": "{\n\t\"name\" : \"Kebabish\",\n\t\"lat\" : \"42.346932\",\n\t\"lon\" : \"-71.075637\"\n}"
 						},
 						"url": {
-							"raw": "http://localhost:8081/trucks",
+							"raw": "http://localhost:8081/api/trucks/new",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8081",
 							"path": [
-								"trucks"
+								"api",
+								"trucks",
+								"new"
 							]
 						}
 					},
@@ -90,14 +145,16 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://localhost:8081/trucks",
+							"raw": "http://localhost:8081/api/trucks/all",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8081",
 							"path": [
-								"trucks"
+								"api",
+								"trucks",
+								"all"
 							]
 						}
 					},

@@ -14,6 +14,7 @@ app.use(bodyParser.urlencoded( { extended: true }));
 
 app.use(bodyParser.json());
 
+///*
 const mongoose = require("mongoose");
 mongoose.connect(db.url, {useNewUrlParser: true}).then(
     () => { console.log(`${new Date().toUTCString()} - Successfully connected to MongoDB.`) },
@@ -23,9 +24,11 @@ app.use(require('./app/routes'));
 app.listen(port, () => {
     console.log('We are live on ' + port);
 });
-/*MongoClient.connect(db.url, (err, database) => {
+//*/
+/*
+MongoClient.connect(db.url, (err, database) => {
     if (err) return console.log(err);
-    //require('./app/routes')(app, database);
+    require('./app/routes')(app, database);
     database.collection("truckCounts")
         .ensureIndex({loc:"2dsphere"}, (error, result) => {
             if (error)
@@ -36,4 +39,5 @@ app.listen(port, () => {
         console.log('We are live on ' + port);
     });
 
-});*/
+});
+//*/

@@ -3,13 +3,16 @@ const scheduleRoutes = require('./schedule_routes');
 const populateRoutes = require('./populate_routes');
 const observer = require('./observer');
 
+///*
 const router = require('express').Router();
 router.use('/api', require('./api'));
 module.exports = router;
+//*/
 
-/*module.exports = function(app, db){
+/*
+module.exports = function(app, db){
         // Add headers
-    /*app.use(function (req, res, next) {
+    app.use(function (req, res, next) {
 
         // Website you wish to allow to connect
         res.setHeader('Access-Control-Allow-Origin', 'http://localhost:4200');
@@ -32,5 +35,6 @@ module.exports = router;
     scheduleRoutes(app, db);
     populateRoutes(app, db);
     observer(app, db);
-}*/
+}
+//*/
 
