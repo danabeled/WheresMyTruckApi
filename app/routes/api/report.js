@@ -11,8 +11,6 @@ admin.initializeApp({
 
 function sendMessage(truck, messageType) {
     
-    console.log(truck);
-    console.log(devices);
     for (let device of devices.list.values()) {
         console.log(device);
         var message = {
@@ -94,14 +92,6 @@ function truckCondition(truckName, latitude, longitude) {
     }
 }
 
-function truckMatchCount(condition) {
-    return new Promise((resolve, reject) => {
-        Trucks.countDocuments(condition, (err, count) => {
-            resolve(count);
-        });
-    });
-}
-
 function getTruck(condition) {
     return new Promise((resolve, reject) => {
         Trucks.findOne(condition, (err, findRes) => {
@@ -113,7 +103,7 @@ function getTruck(condition) {
 function updateTruckCounts(truck, condition, res) {
     var options = { upsert:true };
 
-    Trucks.update(condition, truck, options, (err, result) => {
+    Trucks.updateOne(condition, truck, options, (err, result) => {
         if (err) {
             console.log(err);
             res.send({'error' : 'truck upsert error'});
@@ -131,16 +121,12 @@ function updateTruckCounts(truck, condition, res) {
 }
 
 function handleTruckVotes(truck, condition, hereIncrement, notHereIncrement, res) {
+
     console.log('handle truck votes');
-    var truckCountPromise = truckMatchCount(condition);
-    Trucks.findOne(condition, (err, count) => {
-        console.log("find one")
-        console.log(condition);
-        console.log(count);
-    });
-    truckCountPromise.then(count => {
-        console.log(count);
-        if (count > 0) {
+    console.log(condition);
+    Trucks.find(condition, (err, items) => {
+        if (items.length > 0) {
+            
             var truckPromise = getTruck(condition);
             truckPromise.then(result => {
                 truck.here = result.here + hereIncrement;
@@ -159,8 +145,6 @@ function handleTruckVotes(truck, condition, hereIncrement, notHereIncrement, res
             truck.notHere = notHereIncrement;
             updateTruckCounts(truck, condition, res);
         }
-    }).catch(err => {
-        console.log(err);
     });
 }
 
@@ -172,6 +156,9 @@ router.post('/here', (req, res) => {
             coordinates: [parseFloat(req.body.lon), parseFloat(req.body.lat)]
         }
     }
+    console.log(truck.loc.coordinates.length);
+    if(req.body.lat == null || req.body.lon == null)
+        return res.status(400).send();
     var condition = truckCondition(req.body.name, parseFloat(req.body.lat), parseFloat(req.body.lon));
     handleTruckVotes(truck, condition, 1, 0, res);
 });
@@ -184,6 +171,8 @@ router.post('/nothere', (req, res) => {
             coordinates: [parseFloat(req.body.lon), parseFloat(req.body.lat)]
         }
     }
+    if(req.body.lat == null || req.body.lon == null)
+        return res.status(400).send();
     var condition = truckCondition(req.body.name, parseFloat(req.body.lat), parseFloat(req.body.lon));
     handleTruckVotes(truck, condition, 0, 1, res);
 });

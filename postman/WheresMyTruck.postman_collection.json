@@ -161,6 +161,304 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "Here",
+			"item": [
+				{
+					"name": "Successful Request",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2ee5e332-940f-4764-8574-c6f4339da90b",
+								"exec": [
+									"pm.test(\"Status code is 200\", function()",
+									"{",
+									"    pm.response.to.have.status(200);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\" : \"Kebabish\",\n\t\"lat\" : \"42.346932\",\n\t\"lon\" : \"-71.075637\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8081/api/report/here",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"report",
+								"here"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "No Lat",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2ee5e332-940f-4764-8574-c6f4339da90b",
+								"exec": [
+									"pm.test(\"Status code is 400\", function()",
+									"{",
+									"    pm.response.to.have.status(400);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\" : \"Kebabish\",\n\t\"lon\" : \"-71.075637\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8081/api/report/here",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"report",
+								"here"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "No Lon",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2ee5e332-940f-4764-8574-c6f4339da90b",
+								"exec": [
+									"pm.test(\"Status code is 400\", function()",
+									"{",
+									"    pm.response.to.have.status(400);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\" : \"Kebabish\",\n\t\"lat\" : \"42.346932\"\n}A"
+						},
+						"url": {
+							"raw": "http://localhost:8081/api/report/here",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"report",
+								"here"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Not Here",
+			"item": [
+				{
+					"name": "Successful Request",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2ee5e332-940f-4764-8574-c6f4339da90b",
+								"exec": [
+									"pm.test(\"Status code is 200\", function()",
+									"{",
+									"    pm.response.to.have.status(200);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\" : \"Kebabish\",\n\t\"lat\" : \"42.346932\",\n\t\"lon\" : \"-71.075637\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8081/api/report/nothere",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"report",
+								"nothere"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "No Lat",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2ee5e332-940f-4764-8574-c6f4339da90b",
+								"exec": [
+									"pm.test(\"Status code is 400\", function()",
+									"{",
+									"    pm.response.to.have.status(400);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\" : \"Kebabish\",\n\t\"lon\" : \"-71.075637\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8081/api/report/nothere",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"report",
+								"nothere"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "No Lon",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2ee5e332-940f-4764-8574-c6f4339da90b",
+								"exec": [
+									"pm.test(\"Status code is 400\", function()",
+									"{",
+									"    pm.response.to.have.status(400);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\" : \"Kebabish\",\n\t\"lat\" : \"42.346932\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8081/api/report/nothere",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"report",
+								"nothere"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	]
 }
