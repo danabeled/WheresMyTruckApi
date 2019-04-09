@@ -1,8 +1,6 @@
-var deviceList = new Set();
 var admin = require('firebase-admin');
-var fs = require('fs');
-
 var serviceAccount = require("../../firebaseServiceAccountCredentials.json");
+var devices = require("./api/devices");
 
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
@@ -12,7 +10,8 @@ admin.initializeApp({
 function sendMessage(truck, messageType) {
     
     console.log(truck);
-    for (let device of deviceList.values()) {
+    console.log(devices);
+    for (let device of devices.list.values()) {
         console.log(device);
         var message = {
             data : {
@@ -63,20 +62,6 @@ function pushToSubscribers(truck, hereIncrement, notHereIncrement) {
 
 module.exports = function(app, db) {
 
-    app.post('/register', (req, res) => {
-        var ip = req.body.ip;
-        deviceList.add(ip);
-        console.log(ip);
-        res.send({"ip" : ip});
-    });
-
-    app.post('/remove', (req, res) => {
-        var ip = req.body.ip;
-        console.log(ip);
-        deviceList.delete(ip);
-        res.send({"ip" : ip});
-    });
-    
     app.get('/truckCounts', (req, res) => {
         var truck = {name : req.query.name};
         db.collection('truckCounts').find({name:truck.name}).toArray(function(err, docs){

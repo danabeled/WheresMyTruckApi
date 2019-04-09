@@ -1,4 +1,4 @@
-const truckRoutes = require('./truck_routes');
+
 
 ///*
 const router = require('express').Router();
@@ -7,6 +7,7 @@ module.exports = router;
 //*/
 
 /*
+const truckRoutes = require('./truck_routes');
 module.exports = function(app, db){
         // Add headers
     app.use(function (req, res, next) {
@@ -29,8 +30,6 @@ module.exports = function(app, db){
     });
 
     truckRoutes(app, db);
-    scheduleRoutes(app, db);
-    observer(app, db);
 }
 //*/
 

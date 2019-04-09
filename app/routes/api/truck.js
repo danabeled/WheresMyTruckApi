@@ -2,14 +2,23 @@ const router = require('express').Router();
 const Trucks = require('../../models/Truck');
 
 router.post('/new', (req, res) =>{
-    const truck = { name: req.body.name, lat: req.body.lat, lon: req.body.lon };
+    console.log(parseFloat(req.body.lat));
+    const truck = { name: req.body.name, 
+        loc: {
+            type: "Point",
+            coordinates: [parseFloat(req.body.lon), parseFloat(req.body.lat)],
+        },
+        here: 0,
+        notHere: 0
+    };
     
     console.log('trucks');
-
+    console.log(truck);
     const newTruck = new Trucks(truck);
+    console.log(newTruck);
     return newTruck.save(function(error){
         if(error) {
-            res.send({'error' : 'An error has occurred' })
+            res.send({'error' : error })
         } else {
             res.send(newTruck);
         }
