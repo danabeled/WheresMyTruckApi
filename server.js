@@ -11,8 +11,8 @@ const app               = express();
 const port = 8081;
 
 app.use(bodyParser.urlencoded( { extended: true }));
-
 app.use(bodyParser.json());
+app.use(require("cors")());
 
 ///*
 const mongoose = require("mongoose");

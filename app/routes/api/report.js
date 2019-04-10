@@ -68,12 +68,6 @@ router.get('/truckCounts', (req, res) => {
 });
 
 
-router.get('/truckAllCounts', (req, res) => {
-    Trucks.find({}).toArray(function(err, docs){
-        res.send(docs);
-    });
-});
-
 
 
 function truckCondition(truckName, latitude, longitude) {
