@@ -308,6 +308,102 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Truck name doesn't exist",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2ee5e332-940f-4764-8574-c6f4339da90b",
+								"exec": [
+									"pm.test(\"Status code is 200\", function()",
+									"{",
+									"    pm.response.to.have.status(200);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\" : \"Dan's Dogs\",\n\t\"lat\" : \"42.346932\",\n\t\"lon\" : \"-71.075637\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8081/api/report/here",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"report",
+								"here"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Far away lat long",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2ee5e332-940f-4764-8574-c6f4339da90b",
+								"exec": [
+									"pm.test(\"Status code is 200\", function()",
+									"{",
+									"    pm.response.to.have.status(200);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\" : \"Kebabish\",\n\t\"lat\" : \"0\",\n\t\"lon\" : \"-71.075637\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8081/api/report/here",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"report",
+								"here"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
