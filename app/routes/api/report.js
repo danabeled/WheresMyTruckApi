@@ -100,7 +100,7 @@ function updateTruckCounts(truck, condition, res) {
     Trucks.updateOne(condition, truck, options, (err, result) => {
         if (err) {
             console.log(err);
-            res.send({'error' : 'truck upsert error'});
+            res.status(400).send({'error' : 'truck upsert error'});
         } else {
             var formattedTruck = {
                 name: truck.name,

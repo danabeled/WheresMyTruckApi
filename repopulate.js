@@ -14,11 +14,10 @@ var j = new CronJob('1 0 0 * * *', function() {
         console.log(d.getDay());
         database.collection("trucks").drop(function(err, delOK) {
             if (err) console.log(err);
-            if (delOK) console.log("Truck Collection deleted");
-        });
-        database.collection("truckCounts").remove(function(err, delOK){
-            if (err) console.log(err);
-            if (delOK) console.log("Truck Count Collection deleted")
+            if (delOK) {
+                console.log("Truck Collection deleted");
+                db.init();
+            }
         });
         database.collection('scheduledTrucks').find({}).toArray(function(err, docs){
             docs.forEach(doc => {
