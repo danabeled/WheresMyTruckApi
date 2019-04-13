@@ -34,5 +34,5 @@ var j = new CronJob('1 0 0 * * *', function() {
             });
         });
     });
-}, null, true, 'America/Los_Angeles');
+}, null, true, 'America/Boston');
 console.log(j.nextDates());
