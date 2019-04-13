@@ -119,7 +119,7 @@ function handleTruckVotes(truck, condition, hereIncrement, notHereIncrement, res
     console.log('handle truck votes');
     console.log(condition);
     Trucks.find(condition, (err, items) => {
-        if (items.length > 0) {
+        if (items != null && items.length > 0) {
             
             var truckPromise = getTruck(condition);
             truckPromise.then(result => {
