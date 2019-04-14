@@ -50,7 +50,10 @@ module.exports = {
     }
 };
 
-
+/**
+ * Used to initalize index to trucks collection since
+ * there is an open issue with Mongoose's 2dsphere wrapper
+ */
 function initialize() {
     MongoClient.connect(urlString, (err, database) => {
         if (err) return console.log(err);
