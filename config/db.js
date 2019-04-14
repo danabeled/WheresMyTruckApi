@@ -17,11 +17,24 @@ module.exports = {
                     initialize();
                 }
             });
-            database.collection('scheduledTrucks').find({}).toArray(function(err, docs){
+            database.collection('scheduledtrucks').find({}).toArray(function(err, docs){
+                
                 docs.forEach(doc => {
+                    
                     if(d.getDay() == doc.day){
+                        
                         todays.push(doc);
-                        database.collection('trucks').insert(doc, (err, result) => {
+                        
+                        const truck = { name: doc.name, 
+                            loc: {
+                                type: "Point",
+                                coordinates: [parseFloat(doc.lon), parseFloat(doc.lat)],
+                            },
+                            here: 0,
+                            notHere: 0
+                        };
+                        
+                        database.collection('trucks').insert(truck, (err, result) => {
                             if(err){
                                 console.log({'error' : 'An error has occurred' })
                             } else {
@@ -30,10 +43,12 @@ module.exports = {
                         });
                     }
                 });
+                console.log("Scheduled trucks moved to trucks collection");
             });
         });
     } 
 };
+
 
 function initialize(){
     MongoClient.connect(urlString, (err, database) => {
@@ -43,6 +58,7 @@ function initialize(){
                 if (error)
                     console.log(error);
             });
+        console.log("Collection reinitialized");
 
     })
 };

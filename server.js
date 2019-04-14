@@ -1,6 +1,3 @@
-//Express is a webframework package for node
-//https://www.npmjs.com/package/express
-//https://expressjs.com/
 const express           = require('express');
 const bodyParser        = require('body-parser');
 const db                = require('./config/db');
