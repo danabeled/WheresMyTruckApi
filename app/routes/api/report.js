@@ -68,53 +68,25 @@ router.get('/truckCounts', (req, res) => {
 });
 
 
-
-
-function truckCondition(truckName, latitude, longitude) {
-    return {
-        name: {$regex : truckName, $options: 'i'},
-        loc: { 
-            $near : {
-                $geometry: {
-                    type: "Point",
-                    coordinates: [longitude, latitude]
-                },
-                $maxDistance: 250,
-                $minDistance: 0
-            }
-        }
-    }
-}
-
-function updateTruckCounts(truck, condition, res) {
-    var options = { upsert:true };
-
-    Trucks.updateOne(condition, truck, options, (err, result) => {
+function updateTruckCounts(truck, res) {
+    Trucks.updateNearByTruck(truck).then((result, err) => { 
         if (err) {
             console.log(err);
             res.status(400).send({'error' : 'truck upsert error'});
         } else {
-            var formattedTruck = {
-                name: truck.name,
-                lat: String(truck.loc.coordinates[1]),
-                lon: String(truck.loc.coordinates[0]),
-                here: String(truck.here),
-                notHere: String(truck.notHere)
-            }
-            res.send(formattedTruck);
+            res.send(truck);
         }
     });
 }
 
-function handleTruckVotes(truck, condition, hereIncrement, notHereIncrement, res) {
-
-    console.log('handle truck votes');
-    Trucks.find(condition, (err, results) => {
-        if (results != null && results.length > 0) {
-            var result = results[0];
+function handleTruckVotes(truck, hereIncrement, notHereIncrement, res) {
+    console.log(res);
+    console.log(`handle truck votes ${res}`);
+    Trucks.findNearByTruck(truck).then(result =>{
+        if (result != null) {
             result.here = result.here + hereIncrement;
             result.notHere = result.notHere + notHereIncrement;
-            updateTruckCounts(result, condition, res);
+            updateTruckCounts(result, res);
             try {
                 pushToSubscribers(result, hereIncrement, notHereIncrement);
             } catch(err) {
@@ -123,7 +95,7 @@ function handleTruckVotes(truck, condition, hereIncrement, notHereIncrement, res
         } else {
             truck.here = hereIncrement;
             truck.notHere = notHereIncrement;
-            updateTruckCounts(truck, condition, res);
+            updateTruckCounts(truck, res);
         }
     });
 }
@@ -139,8 +111,7 @@ router.post('/here', (req, res) => {
     console.log(truck.loc.coordinates.length);
     if(req.body.lat == null || req.body.lon == null)
         return res.status(400).send();
-    var condition = truckCondition(req.body.name, parseFloat(req.body.lat), parseFloat(req.body.lon));
-    handleTruckVotes(truck, condition, 1, 0, res);
+    handleTruckVotes(truck, 1, 0, res);
 });
 
 router.post('/nothere', (req, res) => {
@@ -153,8 +124,7 @@ router.post('/nothere', (req, res) => {
     }
     if(req.body.lat == null || req.body.lon == null)
         return res.status(400).send();
-    var condition = truckCondition(req.body.name, parseFloat(req.body.lat), parseFloat(req.body.lon));
-    handleTruckVotes(truck, condition, 0, 1, res);
+    handleTruckVotes(truck, 0, 1, res);
 });
 
 module.exports = router;

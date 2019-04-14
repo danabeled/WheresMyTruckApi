@@ -10,19 +10,28 @@ const TruckSchema = new mongoose.Schema({
     notHere: Number
 });
 
-TruckSchema.methods.findNearByTruck = function(truckName, latitude, longitude){
-    this.findOne(truckCondition(truckName, latitude, longitude), (err, findRes) => {
+TruckSchema.statics.findNearByTruck = function(truck){
+    return new Promise((resolve, reject) => this.findOne(truckSearchCondition(truck), (err, findRes) => {
         resolve(findRes);
-    });
+    }));
 }
-function truckCondition(truckName, latitude, longitude) {
+
+TruckSchema.statics.updateNearByTruck = function(truck){
+    var options = { upsert:true };
+    console.log(truck);
+    return new Promise((resolve, reject) => this.updateOne(truckSearchCondition(truck), truck, options, (err, result) => {
+        resolve(result);
+    }));
+}
+
+function truckSearchCondition(truck) {
     return {
-        name: {$regex : truckName, $options: 'i'},
+        name: {$regex : truck.name, $options: 'i'},
         loc: { 
             $near : {
                 $geometry: {
                     type: "Point",
-                    coordinates: [longitude, latitude]
+                    coordinates: [truck.loc.coordinates[0], truck.loc.coordinates[1]]
                 },
                 $maxDistance: 250,
                 $minDistance: 0
