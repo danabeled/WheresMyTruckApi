@@ -86,14 +86,6 @@ function truckCondition(truckName, latitude, longitude) {
     }
 }
 
-function getTruck(condition) {
-    return new Promise((resolve, reject) => {
-        Trucks.findOne(condition, (err, findRes) => {
-                resolve(findRes);
-            });
-        });       
-}
-
 function updateTruckCounts(truck, condition, res) {
     var options = { upsert:true };
 
@@ -117,23 +109,17 @@ function updateTruckCounts(truck, condition, res) {
 function handleTruckVotes(truck, condition, hereIncrement, notHereIncrement, res) {
 
     console.log('handle truck votes');
-    console.log(condition);
-    Trucks.find(condition, (err, items) => {
-        if (items != null && items.length > 0) {
-            
-            var truckPromise = getTruck(condition);
-            truckPromise.then(result => {
-                truck.here = result.here + hereIncrement;
-                truck.notHere = result.notHere + notHereIncrement;
-                updateTruckCounts(truck, condition, res);
-                try {
-                    pushToSubscribers(truck, hereIncrement, notHereIncrement);
-                } catch(err) {
-                    console.log(err);
-                }
-            }).catch(err => {
+    Trucks.find(condition, (err, results) => {
+        if (results != null && results.length > 0) {
+            var result = results[0];
+            result.here = result.here + hereIncrement;
+            result.notHere = result.notHere + notHereIncrement;
+            updateTruckCounts(result, condition, res);
+            try {
+                pushToSubscribers(result, hereIncrement, notHereIncrement);
+            } catch(err) {
                 console.log(err);
-            })
+            }
         } else {
             truck.here = hereIncrement;
             truck.notHere = notHereIncrement;

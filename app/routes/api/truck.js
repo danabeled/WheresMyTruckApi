@@ -12,10 +12,8 @@ router.post('/new', (req, res) =>{
         notHere: 0
     };
     
-    console.log('trucks');
-    console.log(truck);
     const newTruck = new Trucks(truck);
-    console.log(newTruck);
+    
     return newTruck.save(function(error){
         if(error) {
             res.send({'error' : error })
