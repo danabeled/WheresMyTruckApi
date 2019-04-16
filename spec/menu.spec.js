@@ -2,7 +2,7 @@ var Menu = require('../app/models/Menu');
 
 describe("Menu Schema", function(){
 
-    it("should require a name field", function(){
+    it("should require a truck field", function(){
         var m = new Menu();
 
         m.validate(function(err){
