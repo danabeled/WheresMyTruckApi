@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "b48be33e-29fb-6812-185d-4fcaa011a15f",
+		"_postman_id": "2da3233d-1ea6-4964-b809-a34444a05c9e",
 		"name": "WheresMyTruck",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -549,6 +549,70 @@
 								"api",
 								"report",
 								"nothere"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Add a Menu",
+			"item": [
+				{
+					"name": "Successful Request",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2ee5e332-940f-4764-8574-c6f4339da90b",
+								"exec": [
+									"pm.test(\"Status code is 200\", function()",
+									"{",
+									"    pm.response.to.have.status(200);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "c5106fa3-0d71-49fe-9809-99011e048ce3",
+								"exec": [
+									"var current_timestamp = new Date();\r",
+									"postman.setEnvironmentVariable(\"current_timestamp\", current_timestamp.toISOString());"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"truck\" : \"Kebabish_{{current_timestamp}}\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8081/api/menu/new",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"menu",
+								"new"
 							]
 						}
 					},
