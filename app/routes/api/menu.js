@@ -25,4 +25,10 @@ router.post('/add', (req, res) =>
     });
 });
 
+router.get('/all', (req, res) => {
+    Menu.find({}, 'truck', function(err, menus){
+        res.send(menus);
+    });
+});
+
 module.exports = router;

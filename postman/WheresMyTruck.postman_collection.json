@@ -739,6 +739,145 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "Add an item to a menu",
+			"item": [
+				{
+					"name": "Successful Request",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2ee5e332-940f-4764-8574-c6f4339da90b",
+								"exec": [
+									"pm.test(\"Status code is 200\", function()",
+									"{",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"New menu added message\", function()",
+									"{",
+									"    pm.expect(pm.response.json().message).to.eql(\"New Menu Item Added\")",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "c5106fa3-0d71-49fe-9809-99011e048ce3",
+								"exec": [
+									"var current_timestamp = new Date();\r",
+									"postman.setEnvironmentVariable(\"current_timestamp\", current_timestamp.toISOString());"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"truck\" : \"Kebabish\",\n\t\"item\" : \"Chicken over Rice\",\n\t\"price\" : \"9.99\"\n\t\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8081/api/menu/add",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"menu",
+								"add"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Get All Truck Menus",
+			"item": [
+				{
+					"name": "Successful Request",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2ee5e332-940f-4764-8574-c6f4339da90b",
+								"exec": [
+									"pm.test(\"Status code is 200\", function()",
+									"{",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Contains specific truck\", function()",
+									"{",
+									"    pm.expect(pm.response.text()).to.include(\"Kebabish\")",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "c5106fa3-0d71-49fe-9809-99011e048ce3",
+								"exec": [
+									"var current_timestamp = new Date();\r",
+									"postman.setEnvironmentVariable(\"current_timestamp\", current_timestamp.toISOString());"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8081/api/menu/all",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"menu",
+								"all"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	]
 }
