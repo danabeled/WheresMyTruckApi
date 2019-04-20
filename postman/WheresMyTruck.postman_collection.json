@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "2da3233d-1ea6-4964-b809-a34444a05c9e",
+		"_postman_id": "59e777f6-70ba-4baf-94f3-11b5f4ef3661",
 		"name": "WheresMyTruck",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -878,6 +878,42 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "Icon",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "avatar",
+							"type": "file",
+							"src": ""
+						},
+						{
+							"key": "truck",
+							"value": "Kebabish",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8081/api/menu/icon",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"menu",
+						"icon"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }

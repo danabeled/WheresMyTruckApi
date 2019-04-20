@@ -12,19 +12,24 @@ router.post('/icon', upload.single('avatar'), function (req, res) {
             res.status(400).send({'message' : 'Menu not found'});
         }
         else{
-            var menu = new Menu(req.body);
-            menu.img.data = fs.readFileSync(req.file.path);
-            menu.img.contentType = 'image/png';
-            menu.save(function(){
-                
+            Menu.updateOne({truck: req.body.truck},
+                {
+                    truck: result.truck,
+                    img: {
+                        data: fs.readFileSync(req.file.path),
+                        contentType: 'image/png'
+
+                    },
+                    items: result.items
+                });
+
                 fs.unlink(req.file.path, function(){
                     console.log('Uploaded file delete');
                 });
-            });
+            };
             res.send({'message' : 'New Menu Icon Added'});
-        }
+        })
     });
-  })
 
 router.post('/new', (req, res) => 
 {
