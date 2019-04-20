@@ -19,6 +19,7 @@ mongoose.connect(db.url, {useNewUrlParser: true}).then(
 db.init();
 
 app.use(require('./app/routes'));
+
 app.listen(port, () => {
     console.log('We are live on ' + port);
 });

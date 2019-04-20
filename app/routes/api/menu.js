@@ -1,6 +1,30 @@
 const router = require('express').Router();
 const Menu = require('../../models/Menu');
 const MenuItem = require('../../models/MenuItem');
+const multer = require('multer');
+const fs = require('fs');
+
+var upload = multer({ dest: 'uploads/'});
+
+router.post('/icon', upload.single('avatar'), function (req, res) {
+    Menu.findOne({truck: req.body.truck}, function(err, result){
+        if(result == undefined){
+            res.status(400).send({'message' : 'Menu not found'});
+        }
+        else{
+            var menu = new Menu(req.body);
+            menu.img.data = fs.readFileSync(req.file.path);
+            menu.img.contentType = 'image/png';
+            menu.save(function(){
+                
+                fs.unlink(req.file.path, function(){
+                    console.log('Uploaded file delete');
+                });
+            });
+            res.send({'message' : 'New Menu Icon Added'});
+        }
+    });
+  })
 
 router.post('/new', (req, res) => 
 {
