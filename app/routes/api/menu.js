@@ -26,10 +26,10 @@ router.post('/icon', upload.single('avatar'), function (req, res) {
                 fs.unlink(req.file.path, function(){
                     console.log('Uploaded file delete');
                 });
-            };
-            res.send({'message' : 'New Menu Icon Added'});
-        })
-    });
+        };
+        res.send({'message' : 'New Menu Icon Added'});
+    })
+});
 
 router.post('/new', (req, res) => 
 {
