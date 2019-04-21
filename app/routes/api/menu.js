@@ -31,8 +31,7 @@ router.post('/icon', upload.single('avatar'), function (req, res) {
     })
 });
 
-router.post('/new', (req, res) => 
-{
+router.post('/new', (req, res) => {
     Menu.findOne({truck: req.body.truck}, function(err, result){
         if(result == undefined){
             var menu = new Menu(req.body);
@@ -45,8 +44,7 @@ router.post('/new', (req, res) =>
     });
 });
 
-router.post('/add', (req, res) =>
-{
+router.post('/add', (req, res) => {
     Menu.findOne({truck: req.body.truck}, function(err, truck){
         truck.items.push(new MenuItem({'name' : req.body.item, 'price' : req.body.price}));
         truck.save();
