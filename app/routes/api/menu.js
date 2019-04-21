@@ -46,8 +46,10 @@ router.post('/new', (req, res) => {
 
 router.post('/add', (req, res) => {
     Menu.findOne({truck: req.body.truck}, function(err, truck){
-        truck.items.push(new MenuItem({'name' : req.body.item, 'price' : req.body.price}));
-        truck.save();
+        truck.items.push(new MenuItem({'name' : req.body.name, 'price' : req.body.price}));
+        truck.save(function(err){
+            if(err) res.send(err);
+        });
         res.send({'message' : 'New Menu Item Added'});
     });
 });
